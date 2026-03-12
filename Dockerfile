@@ -1,13 +1,22 @@
-# Etapa 1: Construcción
-FROM maven:3.8.5-openjdk-17 AS build
+# Etapa 1: Construcción (Build)
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+
+# Copiamos todo el contenido del proyecto
+COPY . .
+
+# Compilamos saltando las pruebas para ahorrar memoria en Render
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Ejecución (Usamos una imagen disponible)
-FROM eclipse-temurin:17-jre
+# Etapa 2: Ejecución (Run)
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
+
+# Buscamos el archivo .jar generado y lo renombramos a app.jar
 COPY --from=build /app/target/*.jar app.jar
+
+# Exponemos el puerto estándar
 EXPOSE 8080
+
+# Comando de inicio
 ENTRYPOINT ["java", "-jar", "app.jar"]
