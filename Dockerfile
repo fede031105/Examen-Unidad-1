@@ -1,18 +1,18 @@
-# Etapa 1: Construcción (Build)
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+# Etapa 1: Construcción (Build) usando Java 21
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Copiamos todo el contenido del proyecto
 COPY . .
 
-# Compilamos saltando las pruebas para ahorrar memoria en Render
+# Compilamos saltando las pruebas para que sea más rápido
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Ejecución (Run)
-FROM eclipse-temurin:17-jdk
+# Etapa 2: Ejecución (Run) usando Java 21
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
-# Buscamos el archivo .jar generado y lo renombramos a app.jar
+# Copiamos el archivo .jar generado
 COPY --from=build /app/target/*.jar app.jar
 
 # Exponemos el puerto estándar
