@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Lista de Vuelos</title></head>
+<body>
+<h2>Listado de Vuelos</h2>
+<a href="/vuelos/nuevo">Agregar nuevo registro</a> <table border="1">
+    <thead>
+    <tr>
+        <th>ID</th><th>Origen</th><th>Destino</th><th>Fecha</th><th>Duración (min)</th><th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="v : ${vuelos}">
+        <td th:text="${v.id}"></td>
+        <td th:text="${v.origen}"></td>
+        <td th:text="${v.destino}"></td>
+        <td th:text="${v.fecha}"></td>
+        <td th:text="${v.duracion}"></td>
+        <td>
+            <a th:href="@{/vuelos/editar/{id}(id=${v.id})}">Editar</a> <a th:href="@{/vuelos/eliminar/{id}(id=${v.id})}">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

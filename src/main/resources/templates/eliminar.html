@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Eliminar Vuelo</title></head>
+<body>
+<h2>¿Estás seguro de eliminar este vuelo?</h2>
+<p>ID: <span th:text="${vuelo.id}"></span></p>
+<p>Origen: <span th:text="${vuelo.origen}"></span> - Destino: <span th:text="${vuelo.destino}"></span></p>
+
+<form th:action="@{/vuelos/borrar}" method="post">
+    <input type="hidden" name="id" th:value="${vuelo.id}" />
+    <button type="submit">Eliminar</button> <a href="/vuelos">Cancelar</a>
+</form>
+</body>
+</html>

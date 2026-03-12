@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Editar Vuelo</title></head>
+<body>
+<h2>Editar Vuelo</h2>
+<form th:action="@{/vuelos/actualizar}" th:object="${vuelo}" method="post">
+    ID: <input type="number" th:field="*{id}" readonly /><br/>
+    Origen: <input type="text" th:field="*{origen}" /><br/>
+    Destino: <input type="text" th:field="*{destino}" /><br/>
+    Fecha: <input type="date" th:field="*{fecha}" /><br/>
+    Duración: <input type="number" th:field="*{duracion}" /><br/>
+    <button type="submit">Actualizar</button> <a href="/vuelos">Cancelar</a>
+</form>
+</body>
+</html>
